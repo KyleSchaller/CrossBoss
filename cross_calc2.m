@@ -2,7 +2,7 @@
 %
 % by Silv
 
-function cost = cross_calc2(variables,X_loc,Y_loc)
+function cost = cross_calc2(variables,X_loc,Y_loc,xmin,xmax,ymin,ymax)
 
     % Set fixed RX locations
     X_locations = X_loc; 
@@ -61,7 +61,7 @@ function cost = cross_calc2(variables,X_loc,Y_loc)
                         Y_same2 = abs(Y_same2) < .001;
                         Same2 = X_same2 & Y_same2;
 
-                        if P_int(1) >= 0 & P_int(1) <= 10 & P_int(2) >= 0 & P_int(2) <= 10 & sum(Same1) == 0 & sum(Same2)==0
+                        if P_int(1) >= xmin & P_int(1) <= xmax & P_int(2) >= ymin & P_int(2) <= ymax & sum(Same1) == 0 & sum(Same2)==0
                             count2 = count2+1;
                             P_final(count2,:) = P_int(1,:);
                         end
@@ -76,8 +76,8 @@ function cost = cross_calc2(variables,X_loc,Y_loc)
     
     
     % Compute Score B
-    x_bins = 0:.2:10.2;
-    y_bins = 0:.2:10.2;
+    x_bins = xmin:.2:xmax+.2;
+    y_bins = ymin:.2:ymax+.2;
     num_xbins = length(x_bins);
     num_ybins = length(y_bins);
     
