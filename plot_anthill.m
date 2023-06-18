@@ -1,6 +1,9 @@
-clear all
-close all
-clc
+% clear all
+% close all
+% clc
+
+%select you probability value here.
+pindx = .99;
 
 B = dir;
 
@@ -51,8 +54,19 @@ for i = 1:length(xgrid)-1
     end
 end
 
-value_grid(value_grid>1000) = 1000;
+
+sorted = sort(value_grid(:),"ascend");
+
+indx_length = length(sorted);
+indx_take = floor(pindx*indx_length);
+
+value_stop = sorted(indx_take);
+
+
+value_grid(value_grid>value_stop) = value_stop;
 figure
+hold on
 contourf(xgrid(1:end-1),ygrid(1:end-1),value_grid')
 % caxis([1000,100000])
 colormap('jet')
+scatter(Data.X_loc,Data.Y_loc,'SizeData',200,'MarkerEdgeColor','w','MarkerFaceColor','k','LineWidth',4)
